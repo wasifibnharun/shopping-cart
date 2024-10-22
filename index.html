@@ -80,71 +80,58 @@
 
    <script>
 
-   // Set initial prices and tax rate
-   const prices = {
-      item1: 1219,
-      item2: 59
-   };
-   const taxRate = 0.05; // 5% tax
+   document.getElementById('itemUp1').addEventListener("click", function() {
+    const quantity = document.getElementById('itemCount1');
+    const quantityCount = parseInt(quantity.value);
+    const newQuantityCount = quantityCount + 1;
+    quantity.value = newQuantityCount;
+    const total = newQuantityCount * 1219;
+    document.getElementById('price1').innerText = total;
+    
+    updateSubtotal();
+   });
 
-   // Function to update subtotal, tax, and total
-   function updateCart() {
-      // Get item quantities
-      const itemCount1 = parseInt(document.getElementById('itemCount1').value);
-      const itemCount2 = parseInt(document.getElementById('itemCount2').value);
+   document.getElementById('itemDown1').addEventListener("click", function() {
+      const quantity = document.getElementById('itemCount1');
+      const quantityCount = parseInt(quantity.value);
+      const newQuantityCount = quantityCount > 1 ? quantityCount - 1 : 1; // Ensure quantity doesn't go below 1
+      quantity.value = newQuantityCount;
+      const total = newQuantityCount * 1219;
+      document.getElementById('price1').innerText = total;
+      
+      updateSubtotal();
+   });
 
-      // Calculate subtotal
-      const subtotal = (itemCount1 * prices.item1) + (itemCount2 * prices.item2);
-      document.getElementById('subtotal').innerText = subtotal;
+   document.getElementById('itemUp2').addEventListener("click", function() {
+      const quantity = document.getElementById('itemCount2');
+      const quantityCount = parseInt(quantity.value);
+      const newQuantityCount = quantityCount + 1;
+      quantity.value = newQuantityCount;
+      const total = newQuantityCount * 59;
+      document.getElementById('price2').innerText = total;
+      
+      updateSubtotal();
+   });
 
-      // Calculate tax
-      const tax = subtotal * taxRate;
-      document.getElementById('tax').innerText = tax.toFixed(2);
+   document.getElementById('itemDown2').addEventListener("click", function() {
+      const quantity = document.getElementById('itemCount2');
+      const quantityCount = parseInt(quantity.value);
+      const newQuantityCount = quantityCount > 1 ? quantityCount - 1 : 1; // Ensure quantity doesn't go below 1
+      quantity.value = newQuantityCount;
+      const total = newQuantityCount * 59;
+      document.getElementById('price2').innerText = total;
+      
+      updateSubtotal();
+   });
 
-      // Calculate total
-      const total = subtotal + tax;
-      document.getElementById('total-price').innerText = total.toFixed(2);
+   function updateSubtotal() {
+      const price1 = parseInt(document.getElementById('price1').innerText);
+      const price2 = parseInt(document.getElementById('price2').innerText);
+      const totalPrice = price1 + price2;
+      
+      document.getElementById('subtotal').innerText = totalPrice;
+      document.getElementById('total-price').innerText = totalPrice;
    }
-
-   // Increment and decrement functions for item 1
-   document.getElementById('itemUp1').addEventListener('click', function () {
-      const itemCount = document.getElementById('itemCount1');
-      itemCount.value = parseInt(itemCount.value) + 1;
-      updateCart();
-   });
-
-   document.getElementById('itemDown1').addEventListener('click', function () {
-      const itemCount = document.getElementById('itemCount1');
-      if (parseInt(itemCount.value) > 1) {
-         itemCount.value = parseInt(itemCount.value) - 1;
-         updateCart();
-      }
-   });
-
-   // Increment and decrement functions for item 2
-   document.getElementById('itemUp2').addEventListener('click', function () {
-      const itemCount = document.getElementById('itemCount2');
-      itemCount.value = parseInt(itemCount.value) + 1;
-      updateCart();
-   });
-
-   document.getElementById('itemDown2').addEventListener('click', function () {
-      const itemCount = document.getElementById('itemCount2');
-      if (parseInt(itemCount.value) > 1) {
-         itemCount.value = parseInt(itemCount.value) - 1;
-         updateCart();
-      }
-   });
-
-   // Remove item 1
-   document.querySelector('.remove-item').addEventListener('click', function () {
-      this.closest('.cart-item').remove();
-      updateCart();
-   });
-
-   // Initial update of the cart
-   updateCart();
-
 
    </script>
    <script src="assets/js/bootstrap.bundle.min.js"></script>
